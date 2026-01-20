@@ -20,3 +20,5 @@
     dependencies = {"3rd/image.nvim"}
 }
 ```
+
+https://github.com/user-attachments/assets/a7f7dee6-c8c6-4842-8629-88bf0fffa836
