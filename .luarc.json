@@ -1,5 +1,8 @@
 {
-  "workspace.library": ["/usr/share/nvim/runtime", "${3rd}/luv/library" ],
-  "runtime.version": "Lua 5.1",
+  "workspace.library": [
+    "/usr/share/nvim/runtime",
+    "${3rd}/luv/library"
+  ],
+  "runtime.version": "Lua 5.2",
   "hint.enable": false
 }
