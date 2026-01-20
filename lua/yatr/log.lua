@@ -1,6 +1,6 @@
 local M = {}
 
-M.WRITE_LEVEL = "DEBUG"
+M.WRITE_LEVEL = "ERROR"
 
 local LOG_FILE = "/tmp/yalr.log"
 
@@ -22,18 +22,13 @@ local function write_log(level, message)
   local log_entry = string.format("[%s] [%s] %s\n", timestamp, level, message)
 
   -- Safely write to log file (append mode)
-  local ok, err = pcall(function()
+  pcall(function()
     local file = io.open(LOG_FILE, "a")
     if file then
       file:write(log_entry)
       file:close()
     end
   end)
-
-  -- Silently fail if we can't write to log file
-  if not ok then
-    -- Don't notify to avoid recursion
-  end
 end
 
 -- Log functions for each level

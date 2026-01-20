@@ -1,3 +1,7 @@
+-- TODO:
+-- [ ] Fix fast scrolling not able to clear properly
+-- [ ] Move Image to a separate window
+
 local M = {}
 
 M.cli = require('yatr.cli')
@@ -216,9 +220,11 @@ local function render_image(image_to_render, png_file, viewport_start)
   })
 
   if image then
+    if M.all_loaded_images[image_to_render.bufnr][image_to_render.tex_base64_with_pos] ~= nil then
+      M.all_loaded_images[image_to_render.bufnr][image_to_render.tex_base64_with_pos].image:clear()
+    end
     M.all_loaded_images[image_to_render.bufnr][image_to_render.tex_base64_with_pos] = {
       image = image,
-      rendered = true,
     }
   else
     M.log.error(string.format('[Yatr Renderer] Failed to render image: %s', png_file))
@@ -280,11 +286,9 @@ function M.render_math_overlays(bufnr)
     ::continue::
   end
 
-  vim.schedule(function()
-    for _, image in pairs(M.all_loaded_images[bufnr]) do
-      image.image:clear()
-    end
-  end)
+  for _, image in pairs(M.all_loaded_images[bufnr]) do
+    image.image:clear()
+  end
 
   M.clear_error_extmarks(bufnr)
 
@@ -295,14 +299,10 @@ function M.render_math_overlays(bufnr)
       image_to_render.tex_string,
       image_to_render.tex_base64,
       function(png_file)
-        vim.schedule(function()
-          render_image(image_to_render, png_file, viewport_start)
-        end)
+        render_image(image_to_render, png_file, viewport_start)
       end,
       function(error)
-        vim.schedule(function()
-          M.create_error_extmark(image_to_render, error)
-        end)
+        M.create_error_extmark(image_to_render, error)
       end
     )
   end
