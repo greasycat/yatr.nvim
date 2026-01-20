@@ -9,6 +9,7 @@
 # Requirements
 
 * `Node ^16`
+* `rsvg-convert` (provided by librsvg)
 * `3rd/image.nvim`
 * `Kitty`
 * `markdown` treesitter
