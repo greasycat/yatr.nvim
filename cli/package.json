@@ -1,0 +1,16 @@
+{
+  "name": "yatr.nvim",
+  "version": "1.0.0",
+  "description": "MathJax Backend",
+  "main": "index.js",
+  "repository": "git@github.com:greasycat/yatr.nvim.git",
+  "author": "greasycat <131315c@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "node tests/mathjax.test.js"
+  },
+  "dependencies": {
+    "mathjax": "4",
+    "@msgpack/msgpack": "^3.0.0"
+  }
+}
